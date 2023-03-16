@@ -6,16 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>메인 페이지</title>
-  <!-- localhost:4000/public 이라는 동일한 의미를 가진다. / 슬래쉬 하나. static 설정을 해주었기 때문. -->
-  <link rel="stylesheet" href="/css/style.css">
-  <script defer src="/js/main.js"></script>
 </head>
 
 <body>
-  <h1>메인 페이지 입니다!</h1>
-  <p><%= msg %></p>
-  <!-- 뷰 파일에서 ejs 문법 사용하여 데이터 출력 가능한 것임 -->
-  <img src="/images/puppy.jpg" alt="강아지" />
+  <h1>Welcome to SangAh Express Service!</h1>
+  <h2><a href="/users">회원 서비스</a></h2>
+  <h2><a href="/dbBoard">변수 게시판 서비스</a></h2>
+  <script>
+    // console.log(document.cookie);
+    // document.cookie = "user=sangah; expires=17 Mar 2023 13:00:00 GMT; path=/";
+    // document.cookie = "test=kdt; expires=17 Mar 2023 13:00:00 GMT; path=/";
+    // 만료일이 지나면 쿠키가 생성이 안됨. 2022로 하니까 콘솔에 안뜸
+    // expires 미국식 날짜 계산, 오늘보다 +1 입력
+    // 사용법 전혀 기억할 일 없다. 쿠키의 정의 아는게 더 중요하다.
+    console.log(document.cookie);
+  </script>
 </body>
 
 </html>

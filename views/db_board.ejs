@@ -138,8 +138,8 @@
               <!-- 컬럼명을 따라가야 하기 때문에 TITLE, CONTENT 대문자로 써야함 -->
             </div>
             <div class="foot">
-              <a class="btn orange" href="/dbBoard/modify/<%= ARTICLE[i].title %>">수정</a>
-              <a class="btn blue" href="#" onclick="deleteArticle('<%= ARTICLE[i].title %>')">삭제</a>
+              <a class="btn orange" href="/dbBoard/modify/<%= ARTICLE[i].ID_PK %>">수정</a>
+              <a class="btn blue" href="#" onclick="deleteArticle('<%= ARTICLE[i].ID_PK %>')">삭제</a>
             </div>
           </li>
           <% } %>
@@ -152,20 +152,20 @@
     </div>
   </div>
   <script>
-    // promise 사용해서 하기
-    function deleteArticle(title) {
-      fetch(`http://localhost:4000/board/delete/${title}`, {
+    function deleteArticle(ID_PK) {
+      fetch(`http://localhost:4000/dbBoard/delete/${ID_PK}`, {
         method: 'delete',
         header: {
           'Content-type': 'applicatno/json',
         },
       }).then((res) => {
-        location.href = '/board';
+        if (res.status === 200) location.reload();
+        // 페이지 새로고침하려면 reload 사용해도 됨 (조금 더 디테일하게 짜는 것임)
+        // location.href = '/dbBoard'; 대신에 reload 사용해도 됨
+
       })
     }
   </script>
 </body>
 
 </html>
-
-<!-- 프로미스 잘 안씀 -->

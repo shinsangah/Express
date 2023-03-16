@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = 4000;
@@ -13,6 +14,7 @@ app.use(express.static('public'));
 // public 폴더 static 폴더로써 동작하게 됨
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // bodyParser는 구식이라 안써도 됨
 // app.use(bodyParser.json());
@@ -23,12 +25,14 @@ const userRouter = require('./routes/users');
 const boardRouter = require('./routes/board');
 const dbRouter = require('./routes/db');
 const dbBoardRouter = require('./routes/dbBoard');
+const cookieRouter = require('./routes/cookie');
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
 app.use('/board', boardRouter);
 app.use('/db', dbRouter);
 app.use('/dbBoard', dbBoardRouter);
+app.use('/cookie', cookieRouter);
 
 // 매개변수 무조건 4개 써주어야 작동이 됨
 app.use((err, req, res, next) => {

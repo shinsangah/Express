@@ -17,7 +17,6 @@ const ARTICLE = [
   },
 ];
 
-// localhost:4000/board
 
 // 글 전체 목록 보여주기
 router.get('/', (req, res) => {
