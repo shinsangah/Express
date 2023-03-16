@@ -22,12 +22,15 @@ const mainRouter = require('./routes');
 const userRouter = require('./routes/users');
 const boardRouter = require('./routes/board');
 const dbRouter = require('./routes/db');
+const dbBoardRouter = require('./routes/dbBoard');
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
 app.use('/board', boardRouter);
 app.use('/db', dbRouter);
+app.use('/dbBoard', dbBoardRouter);
 
+// 매개변수 무조건 4개 써주어야 작동이 됨
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(err.statusCode);
