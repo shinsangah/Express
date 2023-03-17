@@ -17,8 +17,15 @@ router.post('/', (req, res) => {
         res.redirect('/dbBoard');
       } else {
         res.status(400);
-        res.send('비밀번호가 다릅니다!<br><a href="login">로그인으로 이동</a>');
+        res.send(
+          '비밀번호가 다릅니다!<br><a href="/login">로그인으로 이동</a>',
+        );
       }
+    } else {
+      res.status(400);
+      res.send(
+        '해당 ID가 존재하지 않습니다!<br><a href="/register">회원가입으로 이동</a>',
+      );
     }
   });
   // usderDB 찾아서 해주면 알아서 import 위에 해줌
