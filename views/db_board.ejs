@@ -123,6 +123,7 @@
         <span>현재 등록 글 : &nbsp; <%= articleCounts %></span>
         <!-- localhost:4000/board/write -->
         <a class="btn red" href="/dbBoard/write">글쓰기</a>
+        <a class="btn orange" href="/login/logout">로그아웃</a>
         <!-- /board/write로 get 방식으로 요청하고 있다. -->
       </div>
       <div class="board_body">
@@ -130,6 +131,9 @@
           <% if (articleCounts > 0) { %>
           <% for(let i=0; i < articleCounts; i++) { %>
           <li>
+            <div class="author">
+              작성자 : <%= ARTICLE[i].USERID %>
+            </div>
             <div class="title">
               <%= ARTICLE[i].TITLE %>
             </div>
@@ -138,8 +142,10 @@
               <!-- 컬럼명을 따라가야 하기 때문에 TITLE, CONTENT 대문자로 써야함 -->
             </div>
             <div class="foot">
+              <% if (ARTICLE[i].USERID === userId) { %>
               <a class="btn orange" href="/dbBoard/modify/<%= ARTICLE[i].ID_PK %>">수정</a>
               <a class="btn blue" href="#" onclick="deleteArticle('<%= ARTICLE[i].ID_PK %>')">삭제</a>
+              <% } %>
             </div>
           </li>
           <% } %>

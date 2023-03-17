@@ -31,4 +31,11 @@ router.post('/', (req, res) => {
   // usderDB 찾아서 해주면 알아서 import 위에 해줌
 });
 
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) throw err;
+    res.redirect('/');
+  });
+});
+
 module.exports = router;
