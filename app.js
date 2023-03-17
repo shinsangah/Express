@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const app = express();
 const PORT = 4000;
@@ -15,6 +16,16 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(
+  session({
+    secret: '1234',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+    },
+  }),
+);
 
 // bodyParser는 구식이라 안써도 됨
 // app.use(bodyParser.json());
@@ -26,6 +37,10 @@ const boardRouter = require('./routes/board');
 const dbRouter = require('./routes/db');
 const dbBoardRouter = require('./routes/dbBoard');
 const cookieRouter = require('./routes/cookie');
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
+
+// Router 걸려있는거 보면 얼마나 규모있는 서비스인지 알 수 있다.
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
@@ -33,8 +48,10 @@ app.use('/board', boardRouter);
 app.use('/db', dbRouter);
 app.use('/dbBoard', dbBoardRouter);
 app.use('/cookie', cookieRouter);
+app.use('/register', registerRouter);
+app.use('/login', loginRouter);
 
-// 매개변수 무조건 4개 써주어야 작동이 됨`
+// 매개변수 무조건 4개 써주어야 작동이 됨
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(err.statusCode);
