@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>쿠키 팔아요!</h1>
+  <input type="checkbox" name="check" id="check" />
+  <label>ALERT 하루동안 보지 않기</label>
+
+  <script>
+    if (!document.cookie) alert('쿠키 팔아요!');
+    // 뭐가 됐든 쿠키가 존재하지 않으면, 팝업을 띄어준다.
+
+    const CheckBox = document.getElementById('check');
+    CheckBox.addEventListener('click', async () => {
+            // 트리거는 click, 클릭을 통해서 동작할 수 있도록
+            if (CheckBox.checked) {
+              // 콜백 방식으로 구현하는 것 보여줌
+              const res = await fetch(`/cookie/cook`, {
+                  method: 'GET',
+                  headers: {
+                    'Content-type': 'application/json',
+                  }
+                  //     }).then((res) => {
+                  //       console.log('Response', res);
+                  //       return rex.json();
+                  //     }).then((msg) => {
+                  //       console.log('Message', msg);
+                  //     })
+                  //   }
+                  // })
+
+                  console.log(res);
+                  const msg = await res.json();
+                  cnosole.log(msg);
+                }
+              })
+  </script>
+</body>
+
+</html>

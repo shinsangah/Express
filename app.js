@@ -34,7 +34,7 @@ app.use('/db', dbRouter);
 app.use('/dbBoard', dbBoardRouter);
 app.use('/cookie', cookieRouter);
 
-// 매개변수 무조건 4개 써주어야 작동이 됨
+// 매개변수 무조건 4개 써주어야 작동이 됨`
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(err.statusCode);
