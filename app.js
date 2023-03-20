@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -5,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const app = express();
-const PORT = 4000;
+const { PORT } = process.env;
 // 리액트가 보통 3000번 써서 피하는게 좋다.
 // 코드가 겹칠 수 있기 때문에 3000번 쓰는건 추천 안함.
 
