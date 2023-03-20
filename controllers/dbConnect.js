@@ -5,7 +5,6 @@ const connection = mysql.createConnection({
   user: 'root',
   password: '1234',
   port: '3306',
-  // mysql port 3306은 고정이다.
   database: 'mydb1',
 });
 

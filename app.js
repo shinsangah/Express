@@ -15,7 +15,7 @@ app.use(express.static('public'));
 // public 폴더 static 폴더로써 동작하게 됨
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('bebe'));
 app.use(
   session({
     secret: '1234',
@@ -23,6 +23,10 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 1000 * 60 * 60,
+      // maxAge가 session 유지보다 선행하기 때문에
+      // 서버의 쿠키 형태로 남아서 서버 입장에서 살아남아 있으니까
+      // 다시 주워다가 브라우저가 sessionId 라는거 보여주고
+      // 서버가 남아있네 하고 데이터 다시 가져오는 것임.
     },
   }),
 );

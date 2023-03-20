@@ -13,6 +13,15 @@ router.post('/', (req, res) => {
       if (data[0].PASSWORD === req.body.password) {
         req.session.login = true;
         req.session.userId = req.body.id;
+
+        // 로그인 쿠키 발행
+        res.cookie('user', req.body.id, {
+          maxAge: 1000 * 10,
+          httpOnly: true,
+          signed: true,
+          // 쿠키 데이터는 암호화되서 저장이 됨
+        });
+
         res.status(200);
         res.redirect('/dbBoard');
       } else {
@@ -31,9 +40,11 @@ router.post('/', (req, res) => {
   // usderDB 찾아서 해주면 알아서 import 위에 해줌
 });
 
+// 로그아웃 처리
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) throw err;
+    res.clearCookie('user');
     res.redirect('/');
   });
 });
