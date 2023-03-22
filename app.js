@@ -57,6 +57,7 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 
 // 매개변수 무조건 4개 써주어야 작동이 됨
+// 인자가 4개일 때만 에러를 받을 수 있기 때문
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(err.statusCode);

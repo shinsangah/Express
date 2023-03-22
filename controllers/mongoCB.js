@@ -1,72 +1,32 @@
+// 콜백 지옥을 Async / Await 로!
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const uri =
   'mongodb+srv://sangah:ghdtkadl!1@cluster0.zwzcput.mongodb.net/?retryWrites=true&w=majority';
-// 비밀번호 꺽쇠 사용하면 안됨
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
 
-async function main() {
-  await client.connect();
+// //insertOne
+client.connect((err) => {
   const test = client.db('kdt5').collection('test');
 
-  const deleteManyResult = await test.deleteMany({});
-  if (!deleteManyResult.acknowledged) return '삭제 에러 발생';
-  const insertManyResult = await test.insertMany([
-    { name: 'pororo', age: 5 },
-    { name: 'crong', age: 4 },
-    { name: 'loopy', age: 6 },
-  ]);
-  if (!insertManyResult.acknowledged) return '데이터 삽입 에러 발생';
+  test.deleteMany({}, (deleteErr, deleteResult) => {
+    if (deleteErr) throw deleteErr;
 
-  const findCursor = test.find({ age: { $gte: 5 } });
-  const dataArr = await findCursor.toArray();
-  console.log(dataArr);
-}
-// try 구문 안에서 에러 어디선가 발생하면 거기서 구문 멈추게 되고,
-// 발생한 에러를 자동으로 던져준다. catch 구문이 인자로써 받는 형태를 가지게 된다.
+    test.insertOne(
+      { name: '신상아', age: 31 },
 
-main();
-
-// try catch 구분 - 이렇게 쓸 수 있다는 점만 알아뒤
-// async function main() {
-//   try {
-//     await client.connect();
-//     const test = client.db('kdt5').collection('test');
-
-//     await test.deleteMany({});
-//     await test.insertOne({ name: 'pororo', age: 5 });
-//   } catch (err) {
-//     console.error(err);
-//   }
-// try 구문 안에서 에러 어디선가 발생하면 거기서 구문 멈추게 되고,
-// 발생한 에러를 자동으로 던져준다. catch 구문이 인자로써 받는 형태를 가지게 된다.
-// }
-
-// 에러 잡는 법 try catch 부분 추가. 중요한 부분.
-
-// main();
-
-// insertOne
-// client.connect((err) => {
-//   const test = client.db('kdt5').collection('test');
-
-//   test.deleteMany({}, (deleteErr, deleteResult) => {
-//     if (deleteErr) throw deleteErr;
-
-//     test.insertOne(
-//       { name: '신상아', age: 31 },
-
-//       (insertErr, insertResult) => {
-//         if (insertErr) throw insertErr;
-//         console.log(insertResult);
-//       },
-//     );
-//   });
-// });
+      (insertErr, insertResult) => {
+        if (insertErr) throw insertErr;
+        console.log(insertResult);
+      },
+    );
+  });
+});
 
 // // insertMany
 // // client.connect((err) => {
