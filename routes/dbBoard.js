@@ -1,5 +1,11 @@
 const express = require('express');
-const { getAllArticles } = require('../controllers/boardController');
+const {
+  getAllArticles,
+  writeArticle,
+  getArticle,
+  modifyArticle,
+  deleteArticle,
+} = require('../controllers/boardController');
 
 const router = express.Router();
 
@@ -18,6 +24,24 @@ function isLogin(req, res, next) {
 
 // 게시판 페이지 호출
 router.get('/', isLogin, getAllArticles);
+
+// 글쓰기 모드로 이동
+router.get('/write', (req, res) => {
+  res.render('db_board_write');
+});
+
+// 글 쓰기
+router.post('/write', isLogin, writeArticle);
+
+// 글 수정 모드로 이동
+router.get('/modify/:id', isLogin, getArticle);
+
+// 글 수정
+router.post('/modify/:id', isLogin, modifyArticle);
+
+// 글 삭제
+router.delete('/delete/:id', isLogin, deleteArticle);
+
 // router.get('/', isLogin, (req, res) => {
 //   boardDB.getAllArticles((data) => {
 //     console.log(data);

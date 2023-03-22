@@ -52,11 +52,11 @@ const loginUser = async (req, res) => {
     if (findeUser.password !== req.body.password)
       return res.status(400).send(LOGIN_PASSWORD_MISS);
 
-    // 세션 쿠키 구워~~
+    // 세션 쿠키 구워
     req.session.login = true;
-    req.session.userID = req.body.id;
+    req.session.userId = req.body.id;
 
-    // 로그인 쿠키 구워~~~
+    // 로그인 쿠키 구워
     res.cookie('user', req.body.id, {
       maxAge: 1000 * 30,
       httpOnly: true,
