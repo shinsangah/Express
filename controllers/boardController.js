@@ -1,5 +1,5 @@
 // const connection = require('./dbConnect');
-const mongoClient = require('/mongoConnect');
+const mongoClient = require('./mongoConnect');
 
 const UNEXPECTED_MSG = '<br><a href="/">메인 페이지로 이동</a>';
 
