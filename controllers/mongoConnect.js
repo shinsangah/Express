@@ -1,13 +1,12 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const { clearConfigCache } = require('prettier');
+const { MONGO_DB_URI } = process.env;
 
-const uri =
-  'mongodb+srv://sangah:ghdtkadl!1@cluster0.zwzcput.mongodb.net/?retryWrites=true&w=majority';
-// 비밀번호 꺽쇠 사용하면 안됨
-const client = new MongoClient(uri, {
+const client = new MongoClient(MONGO_DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
 
 module.exports = client;
+
+console.log(MONGO_DB_URI);
